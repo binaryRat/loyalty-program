@@ -1,2 +1,2 @@
 # loyalty-program
-Programma fedeltà per group project Unicam
+Programma fedeltà per corso Ingegneria del software Unicam
