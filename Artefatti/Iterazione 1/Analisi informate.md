@@ -10,8 +10,8 @@
 Durante la fase di brain storming sono stati individuati i seguenti casi d'uso (ordinati per priorità):
 
 1. Utente: [Registrazione](DettaglioUC/Registrazione.md )
-2. Responsabile azienda: configurazione e creazione record azienda sull'applicazione
-3. Responsabile azienda: configurazione dei programmi fedeltà
+2. Responsabile azienda: [Configurazione azienda](DettaglioUC/Configurazione%20azienda.md)
+3. Responsabile azienda: [Configurazione programma](DettaglioUC/Configurazione%20programma.md )
 4. Responsabile azienda: definizione e configurazione modulo d'iscrizione 
 5. Cliente: Creazione tessera personale
 6. Cliente: registrazione di un acquisto eseguito in uno store fisico
