@@ -1,10 +1,12 @@
 # Analisi formale
+
 ## Attori
 1. Cliente: il possessore della carta e colui che partecipa ai programmi fedeltà, accumula punti e li utilizza
 2. Amministratore di sistema: 
 3. Responsabile azienda-attività: colui che configura nella piattaforma i dati relativi l'attività rappresentata ed è responsabile della creazione delle campagne
 4. Impiegato azienda: la persona che è responsabile della verifica di un acquisto eseguito online con punti
 5. Analista dati marketing: esegue studio e analisi sui dati estratti sul sistema
+6. Tempo: invalida i punti accumulati
 
 ## Casi d'uso, descrizione breve
 Durante la fase di brain storming sono stati individuati i seguenti casi d'uso (ordinati per priorità):
