@@ -3,11 +3,18 @@ Programma fedeltà per corso Ingegneria del software Unicam
 
 ## Iterazione 1 (09/04/2023 - 15/04/2023)
 Attività svolte
-- Individuazione attori
-- Individuazione Casi d'uso
-- Dettaglio casi d'uso
-- Implementazione diagramma classi d'analisi
-- Implementazione diagramma di sequenza
-- Implementazione diagramma classi di progetto
+- 10% - Individuazione attori
+- 10% - Individuazione Casi d'uso
+- 20% - Dettaglio casi d'uso
+- 20% - Implementazione diagramma classi d'analisi
+- 20% - Implementazione diagramma di sequenza
+- 20% - Implementazione diagramma classi di progetto
 
 ## Iterazione 2 (16/04/2023 - 22/04/2023)
+Attività svolte
+- 15% - Dettaglio casi d'uso
+- 5% - Implementazione diagramma classi d'analisi
+- 40% - Implementazione diagramma di sequenza
+- 40% - Implementazione diagramma classi di progetto
+
+## Iterazione 3 (23/04/2023 - 29/04/2023)
