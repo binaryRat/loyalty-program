@@ -1,7 +1,6 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
 import it.unicam.ids.loyaltyprogram.Factory;
-import it.unicam.ids.loyaltyprogram.Module;
 
 public class DefaultBusinessFactory implements Factory<Business> {
     private DefaultBusiness business;
@@ -13,7 +12,7 @@ public class DefaultBusinessFactory implements Factory<Business> {
         business.addStore(store);
     }
 
-    public void addInformation(BusinessInformationModule module){
+    public void setInformation(BusinessInformationModule module){
         business.setData(module);
     }
 

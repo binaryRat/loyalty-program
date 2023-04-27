@@ -14,7 +14,7 @@ public class BusinessController implements Controller {
         stores.forEach((store) ->{
             factory.addStore(store);
         });
-        factory.addInformation(module);
+        factory.setInformation(module);
         return factory.build();
     }
 
