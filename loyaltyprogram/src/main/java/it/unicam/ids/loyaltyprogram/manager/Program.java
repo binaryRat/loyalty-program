@@ -1,11 +1,13 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
+import it.unicam.ids.loyaltyprogram.Module;
+
 import java.util.List;
 
-public interface Program extends Parameterized{
-     List<Product> getProducts();
+public interface Program<P extends Product, S extends Service, M extends Module> extends Parameterized<M>{
+     List<P> getProducts();
 
-     void addProducts(List<Product> products);
+     void addProducts(List<P> products);
 
-     void addService(Service service);
+     void addService(S service);
 }

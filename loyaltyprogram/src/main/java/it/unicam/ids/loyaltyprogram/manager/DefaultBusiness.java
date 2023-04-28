@@ -15,8 +15,8 @@ public class DefaultBusiness implements Business<BusinessInformationModule,Defau
     private Integer id;
     @OneToMany
     private List<DefaultStore> stores = new ArrayList<>();
-    //@OneToMany
-    //private List<LoyaltyProgram> programs = new ArrayList<>();
+    @OneToMany
+    private List<LoyaltyProgram> programs = new ArrayList<>();
 
     @OneToOne
     private BusinessInformationModule module;
@@ -37,7 +37,7 @@ public class DefaultBusiness implements Business<BusinessInformationModule,Defau
 
     @Override
     public List<LoyaltyProgram> getPrograms() {
-        return null;
+        return programs;
     }
     @Override
     public List<DefaultStore> getStores() {

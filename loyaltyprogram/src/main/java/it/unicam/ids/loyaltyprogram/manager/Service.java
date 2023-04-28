@@ -1,4 +1,4 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
-public interface Service {
+public interface Service extends Coded{
 }

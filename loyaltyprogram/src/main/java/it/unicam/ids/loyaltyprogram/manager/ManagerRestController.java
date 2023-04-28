@@ -1,12 +1,10 @@
 package it.unicam.ids.loyaltyprogram.manager;
 import it.unicam.ids.loyaltyprogram.templates.BusinessTemplate;
 
+import it.unicam.ids.loyaltyprogram.templates.ProgramTemplate;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
 
@@ -15,7 +13,7 @@ import java.security.InvalidParameterException;
 public class ManagerRestController {
     @Autowired
     private BusinessService writer;
-    @PostMapping(value = "/create/business", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/businesses", consumes = "application/json", produces = "application/json")
     public String createBusiness(@RequestBody BusinessTemplate body, HttpServletResponse response){
         BusinessController controller = new BusinessController();
         try{
@@ -26,5 +24,17 @@ public class ManagerRestController {
         }
 
         return "Business created";
+    }
+    @GetMapping(value = "/businesses", produces = "application/json")
+    public String listBusinesses(HttpServletResponse response){
+        return "";
+    }
+    @PostMapping(value = "/businesses/{id}/programs", consumes = "application/json", produces = "application/json")
+    public String addProgramToBusiness(@RequestBody ProgramTemplate body, HttpServletResponse response){
+        return "";
+    }
+    @GetMapping(value = "/businesses/{id}/programs", produces = "application/json")
+    public String listBusinessPrograms(HttpServletResponse response){
+        return "";
     }
 }
