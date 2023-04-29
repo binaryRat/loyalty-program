@@ -1,5 +1,5 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
-public interface Product extends Coded{
+public interface Product {
 
 }

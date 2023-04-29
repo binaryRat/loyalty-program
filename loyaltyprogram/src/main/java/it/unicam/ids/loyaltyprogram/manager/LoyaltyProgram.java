@@ -1,24 +1,28 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
-import it.unicam.ids.loyaltyprogram.Module;
 import jakarta.persistence.*;
-import org.hibernate.cfg.annotations.reflection.internal.XMLContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class LoyaltyProgram implements Program<DefaultProduct, DefaultService, BusinessInformationModule> {
+public class LoyaltyProgram implements Program<DefaultProduct, DefaultService, InformationModule> {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @OneToMany
-    private List<DefaultProduct> products;
-    @OneToMany
-    private List<DefaultService> services;
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<DefaultProduct> products = new ArrayList<>();
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<DefaultService> services = new ArrayList<>();
 
-    @OneToOne
-    private BusinessInformationModule module;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private InformationModule module;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public LoyaltyProgram(){};
     @Override
     public List<DefaultProduct> getProducts() {
         return products;
@@ -35,12 +39,12 @@ public class LoyaltyProgram implements Program<DefaultProduct, DefaultService, B
     }
 
     @Override
-    public BusinessInformationModule getData() {
+    public InformationModule getModule() {
         return this.module;
     }
 
     @Override
-    public void setData(BusinessInformationModule module) {
+    public void setModule(InformationModule module) {
         this.module = module;
     }
 }

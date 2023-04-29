@@ -3,7 +3,7 @@ package it.unicam.ids.loyaltyprogram.manager;
 import it.unicam.ids.loyaltyprogram.Module;
 
 public interface Parameterized<M extends Module> {
-    M getData();
+    M getModule();
 
-    void setData(M module);
+    void setModule(M module);
 }

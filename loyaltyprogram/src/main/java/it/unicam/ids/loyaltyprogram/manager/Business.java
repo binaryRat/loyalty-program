@@ -8,4 +8,6 @@ public interface Business<M extends Module, S extends Store, P extends Program> 
     List<P> getPrograms();
 
     List<S> getStores();
+
+    void addProgram(P program);
 }

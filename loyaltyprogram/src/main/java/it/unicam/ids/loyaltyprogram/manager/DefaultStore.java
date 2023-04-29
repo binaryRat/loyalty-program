@@ -12,6 +12,11 @@ public class DefaultStore implements Store{
     private Integer id;
     private String name;
     private String position;
+
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public void setName(String name) {
         this.name = name;

@@ -12,8 +12,8 @@ public class DefaultBusinessFactory implements Factory<Business> {
         business.addStore(store);
     }
 
-    public void setInformation(BusinessInformationModule module){
-        business.setData(module);
+    public void setInformation(InformationModule module){
+        business.setModule(module);
     }
 
     @Override

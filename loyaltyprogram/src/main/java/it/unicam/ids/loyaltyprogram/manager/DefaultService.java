@@ -12,16 +12,31 @@ public class DefaultService implements Service{
     private Integer id;
     private String name;
     private Integer cost;
-    private String code;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
+    }
+
+    public DefaultService() {}
     public DefaultService(String name, Integer cost) {
         this.name = name;
         this.cost = cost;
-        //TODO creazione randomica del codice
-        this.code = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     }
 
-    @Override
-    public String getCode() {
-        return code;
-    }
 }

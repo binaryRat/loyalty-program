@@ -1,14 +1,12 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
 import it.unicam.ids.loyaltyprogram.Controller;
-import it.unicam.ids.loyaltyprogram.Module;
 
 import java.util.List;
-import java.util.Map;
 
 public class BusinessController implements Controller {
 
-    public DefaultBusiness createNewBusiness(BusinessInformationModule module, List<DefaultStore> stores){
+    public DefaultBusiness createNewBusiness(InformationModule module, List<DefaultStore> stores){
 
         DefaultBusinessFactory factory = new DefaultBusinessFactory();
         stores.forEach((store) ->{
@@ -18,12 +16,11 @@ public class BusinessController implements Controller {
         return factory.build();
     }
 
-    public LoyaltyProgram createNewProgram(BusinessInformationModule module, List<DefaultProduct> products, Map<String, Integer> services){
+    public LoyaltyProgram createNewProgram(InformationModule module, List<DefaultProduct> products, List<DefaultService> services){
         LoyaltyProgram program = new LoyaltyProgram();
-        program.setData(module);
+        program.setModule(module);
         program.addProducts(products);
-        services.forEach((name, cost) ->{
-            DefaultService service = new DefaultService(name,cost);
+        services.forEach((service) ->{
             program.addService(service);
         });
         return program;
