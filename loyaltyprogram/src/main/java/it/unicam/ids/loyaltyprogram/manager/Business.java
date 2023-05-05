@@ -1,5 +1,5 @@
 package it.unicam.ids.loyaltyprogram.manager;
-import it.unicam.ids.loyaltyprogram.Module;
+import it.unicam.ids.loyaltyprogram.core.Module;
 import java.util.List;
 
 public interface Business<M extends Module, S extends Store, P extends Program> extends Parameterized<M>{

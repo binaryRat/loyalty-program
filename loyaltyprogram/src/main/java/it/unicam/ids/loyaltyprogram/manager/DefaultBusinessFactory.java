@@ -1,6 +1,6 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
-import it.unicam.ids.loyaltyprogram.Factory;
+import it.unicam.ids.loyaltyprogram.core.Factory;
 
 public class DefaultBusinessFactory implements Factory<Business> {
     private DefaultBusiness business;

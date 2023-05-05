@@ -1,5 +1,6 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
+import it.unicam.ids.loyaltyprogram.customer.LoyaltyCard;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,13 +16,11 @@ public class DefaultBusiness implements Business<InformationModule,DefaultStore,
     private List<DefaultStore> stores = new ArrayList<>();
     @OneToMany(cascade = {CascadeType.ALL})
     private List<LoyaltyProgram> programs = new ArrayList<>();
-
+    @OneToOne(cascade = {CascadeType.ALL})
+    private InformationModule module;
     public Integer getId() {
         return id;
     }
-
-    @OneToOne(cascade = {CascadeType.ALL})
-    private InformationModule module;
     @Override
     public void addStore(DefaultStore store) {
         stores.add(store);
@@ -45,9 +44,12 @@ public class DefaultBusiness implements Business<InformationModule,DefaultStore,
     public List<DefaultStore> getStores() {
         return stores;
     }
-
     @Override
     public void addProgram(LoyaltyProgram program) {
         programs.add(program);
+    }
+
+    public LoyaltyCard genereteCard() {
+        return new LoyaltyCard();
     }
 }

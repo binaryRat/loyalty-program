@@ -1,6 +1,6 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
-import it.unicam.ids.loyaltyprogram.Controller;
+import it.unicam.ids.loyaltyprogram.core.Controller;
 
 import java.util.List;
 

@@ -1,7 +1,5 @@
 package it.unicam.ids.loyaltyprogram.manager;
-import it.unicam.ids.loyaltyprogram.templates.BusinessTemplate;
 
-import it.unicam.ids.loyaltyprogram.templates.ProgramTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +16,16 @@ public class ManagerRestController {
     @Autowired
     private BusinessService service;
     @PostMapping(value = "/businesses", consumes = "application/json", produces = "application/json")
-    public String createBusiness(@RequestBody BusinessTemplate body){
+    public String createBusiness(@RequestBody DefaultBusiness body){
         BusinessController controller = new BusinessController();
         try{
-            DefaultBusiness business = controller.createNewBusiness(new InformationModule(body.getModule()), body.getStores());
-            service.writeBusiness(business);
+            if(!body.getModule().checkParameters()){
+                throw new InvalidParameterException("One of the input parameter is empty");
+            };
+            service.writeBusiness(body);
         }catch (InvalidParameterException e){
             return "Invalid parameter";
         }
-
         return "Business created";
     }
     @GetMapping(value = "/businesses", produces = "application/json")
@@ -35,15 +34,15 @@ public class ManagerRestController {
         return businesses;
     }
     @PostMapping(value = "/businesses/{id}/programs", consumes = "application/json", produces = "application/json")
-    public String addProgramToBusiness(@PathVariable Integer id, @RequestBody ProgramTemplate body){
+    public String addProgramToBusiness(@PathVariable Integer id, @RequestBody LoyaltyProgram program){
         Optional<DefaultBusiness> optionalBusiness = service.getBusiness(id);
         if(!optionalBusiness.isPresent()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Business not found"
         );
         DefaultBusiness business = optionalBusiness.get();
-        ArrayList<DefaultProduct> products = getProducts(business, body);
-        BusinessController controller = new BusinessController();
-        LoyaltyProgram program = controller.createNewProgram(new InformationModule(body.getModule()),body.getProducts(),body.getServices());
+        //ArrayList<DefaultProduct> products = getProducts(business, program);
+        //BusinessController controller = new BusinessController();
+        //LoyaltyProgram program = controller.createNewProgram(body.getModule(),body.getProducts(),body.getServices());
         business.addProgram(program);
         service.writeBusiness(business);
         return "Program created";
@@ -56,8 +55,13 @@ public class ManagerRestController {
                 HttpStatus.NOT_FOUND, "Business not found"
         );
     }
+    @GetMapping(value = "/search/product", produces = "application/json")
+    public DefaultProduct getProductByCode(@RequestParam String code){
+        DefaultProduct product = service.getProductByCode(code);
+        return product;
+    }
 
-    private ArrayList<DefaultProduct> getProducts(DefaultBusiness business, ProgramTemplate program){
+    private ArrayList<DefaultProduct> getProducts(DefaultBusiness business, LoyaltyProgram program){
         List<DefaultProduct> businessProducts = business.getPrograms()
                 .stream()
                 .flatMap((p) -> p.getProducts().stream()).toList();
@@ -70,10 +74,5 @@ public class ManagerRestController {
             );
         });
         return products;
-        /*try{
-
-        }catch (InvalidParameterException e){
-            throw
-        }*/
     }
 }

@@ -1,6 +1,6 @@
 package it.unicam.ids.loyaltyprogram.manager;
 
-import it.unicam.ids.loyaltyprogram.Module;
+import it.unicam.ids.loyaltyprogram.core.Module;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,17 +18,14 @@ public class InformationModule implements Module {
     private String description;
     public InformationModule(){};
     public InformationModule(Map<String, String> data){
-        if(!checkParameters(data)){
-            throw new InvalidParameterException("One of the input parameter is empty");
-        };
         this.name = data.get("name");
         this.description = data.get("description");
     }
 
     @Override
-    public boolean checkParameters(Map<String, String> data) {
-        if(data.get("name").isBlank()) return false;
-        if(data.get("description").isBlank()) return false;
+    public boolean checkParameters() {
+        if(name.isBlank()) return false;
+        if(description.isBlank()) return false;
         return true;
     }
 
