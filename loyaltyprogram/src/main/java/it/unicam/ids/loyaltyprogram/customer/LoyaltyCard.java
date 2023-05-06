@@ -1,29 +1,40 @@
 package it.unicam.ids.loyaltyprogram.customer;
 
-import it.unicam.ids.loyaltyprogram.manager.LoyaltyProgram;
+import it.unicam.ids.loyaltyprogram.business.LoyaltyProgram;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class LoyaltyCard implements Card<LoyaltyProgram, PointsPerProgram> {
+public class LoyaltyCard implements Card {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<PointsPerProgram> points = new ArrayList<>();
+    private Integer points = 0;
+    private Integer businessId;
+    public LoyaltyCard(){}
+    public LoyaltyCard(Integer businessId){
+        this.businessId = businessId;
+    }
 
     @Override
-    public void addPoints(LoyaltyProgram program, Integer value) {
-
+    public void addPoints(Integer value) {
+        this.points += value;
     }
     @Override
-    public void removePoints(LoyaltyProgram program, Integer value) {
-
+    public void removePoints(Integer value) {
+        this.points -= value;
     }
     @Override
-    public List<PointsPerProgram> getPoints() {
+    public Integer getPoints() {
         return points;
+    }
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
     }
 }

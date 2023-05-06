@@ -1,13 +1,7 @@
 package it.unicam.ids.loyaltyprogram.purchase;
 
-import it.unicam.ids.loyaltyprogram.customer.Customer;
-import it.unicam.ids.loyaltyprogram.manager.BusinessService;
-import it.unicam.ids.loyaltyprogram.manager.DefaultBusiness;
-import it.unicam.ids.loyaltyprogram.manager.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -22,13 +16,22 @@ public class PurchaseRestController {
         return "Purchase created";
     }
     @GetMapping(value = "", produces = "application/json")
-    public List<DefaultPurchase> listBusinesses(){
+    public List<DefaultPurchase> listPurchases(){
         ArrayList<DefaultPurchase> purchases = service.getPurchases();
         return purchases;
     }
-    @PostMapping(value = "/collect", consumes = "application/json", produces = "application/json")
-    public String collectPurchase(@RequestBody Map<String, String> body){
-
-        return "Purchase created";
+    @GetMapping(value = "/{uuid}", produces = "application/json")
+    public DefaultPurchase getPurchase(@PathVariable String uuid){
+        ArrayList<DefaultPurchase> purchases = service.getPurchases();
+        DefaultPurchase purchase = purchases.stream().filter((p)->p.getCode().equals(uuid)).findFirst().get();
+        return purchase;
     }
+    @PostMapping(value = "/{uuid}/consume", produces = "application/json")
+    public DefaultPurchase consumePurchase(@PathVariable String uuid){
+        ArrayList<DefaultPurchase> purchases = service.getPurchases();
+        DefaultPurchase purchase = purchases.stream().filter((p)->p.getCode().equals(uuid)).findFirst().get();
+        purchase.consume();
+        return purchase;
+    }
+
 }

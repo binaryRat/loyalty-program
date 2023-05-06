@@ -1,5 +1,5 @@
 package it.unicam.ids.loyaltyprogram.dbaccess;
-import it.unicam.ids.loyaltyprogram.manager.DefaultBusiness;
+import it.unicam.ids.loyaltyprogram.business.DefaultBusiness;
 import org.springframework.data.repository.CrudRepository;
 
 

@@ -3,6 +3,7 @@ package it.unicam.ids.loyaltyprogram.purchase;
 import it.unicam.ids.loyaltyprogram.customer.Customer;
 import it.unicam.ids.loyaltyprogram.dbaccess.CustomerRepository;
 import it.unicam.ids.loyaltyprogram.dbaccess.PurchaseRepository;
+import it.unicam.ids.loyaltyprogram.dbaccess.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +13,23 @@ import java.util.Optional;
 @Service
 public class PurchaseService {
     @Autowired
-    PurchaseRepository repository;
+    PurchaseRepository purchaseRepository;
+    @Autowired
+    ServiceRepository serviceRepository;
 
     public void writePurchase(DefaultPurchase body) {
-        repository.save(body);
+        purchaseRepository.save(body);
     }
+    public void writeServicePurchase(ServicePurchase service){ serviceRepository.save(service);}
 
     public ArrayList<DefaultPurchase> getPurchases() {
-        return (ArrayList) repository.findAll();
+        return (ArrayList) purchaseRepository.findAll();
+    }
+
+    public Optional<DefaultPurchase> getPurchaseByCode(Integer businessId, String type, String code){
+        return getPurchases().stream()
+                .filter((p)->p.getType().equals(type))
+                .filter((p) -> p.getBusinessId().equals(businessId))
+                .filter((p)-> p.getCode().equals(code)).findFirst();
     }
 }

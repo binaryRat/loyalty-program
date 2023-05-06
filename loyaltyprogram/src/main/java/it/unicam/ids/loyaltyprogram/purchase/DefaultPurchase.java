@@ -19,6 +19,17 @@ public class DefaultPurchase implements Purchase{
 
     private Boolean consumed;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private String type;
+    public Integer businessId;
+
     public DefaultPurchase() {
         this.consumed = false;
     }
@@ -34,7 +45,7 @@ public class DefaultPurchase implements Purchase{
     }
 
     public void consume() {
-        this.consumed = false;
+        this.consumed = true;
     }
 
     public String getCode() {
@@ -43,5 +54,13 @@ public class DefaultPurchase implements Purchase{
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
     }
 }
