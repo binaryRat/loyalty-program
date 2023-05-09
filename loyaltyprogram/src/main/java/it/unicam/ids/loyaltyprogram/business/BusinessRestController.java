@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,8 @@ public class BusinessRestController {
     @Autowired
     private BusinessService service;
     @PostMapping(value = "/businesses", consumes = "application/json", produces = "application/json")
-    public String createBusiness(@RequestBody DefaultBusiness body){
+    public String createBusiness(@RequestBody DefaultBusiness body, @RequestHeader HashMap<String, String> headers){
+        //TODO set del owner al business
         BusinessController controller = new BusinessController();
         try{
             if(!body.getModule().checkParameters()){
@@ -59,6 +61,11 @@ public class BusinessRestController {
     public DefaultProduct getProductByCode(@RequestParam String code, @RequestParam Integer businessId){
         DefaultProduct product = service.getProductByCode(businessId,code);
         return product;
+    }
+    @GetMapping(value = "/search/owned", produces = "application/json")
+    public List<DefaultBusiness> getMyBusinesses(@RequestParam String code, @RequestParam Integer businessId){
+       //TODO
+        return null;
     }
 
     private ArrayList<DefaultProduct> getProducts(DefaultBusiness business, LoyaltyProgram program){

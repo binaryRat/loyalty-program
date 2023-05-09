@@ -92,6 +92,20 @@ public class CustomerRestController {
                 HttpStatus.NOT_FOUND, "Business not found"
         );
         DefaultService service = optionalBusiness.get().getProgramById(programId).get().getServiceById(serviceId).get();
+
+        for(LoyaltyCard card: customer.getCards()){
+            if (card.getBusinessId().equals(businessId)){
+                if(card.getPoints()<service.getCost()){
+                    throw new ResponseStatusException(
+                            HttpStatus.BAD_REQUEST, "Insufficient points amount"
+                    );
+                }else{
+                    card.removePoints(service.getCost());
+                }
+                break;
+            }
+        }
+
         ServicePurchase servicePurchase = new ServicePurchase();
         servicePurchase.setType("service");
         servicePurchase.setCode(generateType1UUID().toString());
@@ -99,15 +113,14 @@ public class CustomerRestController {
         servicePurchase.setProductsCodes(new ArrayList<>(serviceId));
         servicePurchase.setProgramId(programId);
 
-        customer.getCards().forEach((card)->{
-            if (card.getBusinessId().equals(businessId)){
-                card.removePoints(service.getCost());
-            }
-        });
-
         customerService.writeCustomer(customer);
         purchaseService.writeServicePurchase(servicePurchase);
         return servicePurchase;
+    }
+    @PostMapping(value = "/myBusinesses", consumes = "application/json", produces = "application/json")
+    public ServicePurchase getBusinessesByCustomer(@RequestHeader HashMap<String, String> headers){
+        //TODO
+        return null;
     }
     private static long get64LeastSignificantBitsForVersion1() {
         Random random = new Random();

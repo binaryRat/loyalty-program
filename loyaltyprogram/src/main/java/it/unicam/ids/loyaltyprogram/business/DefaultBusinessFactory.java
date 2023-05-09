@@ -15,6 +15,9 @@ public class DefaultBusinessFactory implements Factory<Business> {
     public void setInformation(InformationModule module){
         business.setModule(module);
     }
+    public void setBusinessOwner(BusinessManager owner){
+        business.setOwner(owner);
+    }
 
     @Override
     public DefaultBusiness build() {
