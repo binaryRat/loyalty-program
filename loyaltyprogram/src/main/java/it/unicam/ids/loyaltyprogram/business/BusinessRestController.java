@@ -19,7 +19,6 @@ public class BusinessRestController {
     @PostMapping(value = "/businesses", consumes = "application/json", produces = "application/json")
     public String createBusiness(@RequestBody DefaultBusiness body, @RequestHeader HashMap<String, String> headers){
         //TODO set del owner al business
-        BusinessController controller = new BusinessController();
         try{
             if(!body.getModule().checkParameters()){
                 throw new InvalidParameterException("One of the input parameter is empty");
@@ -42,9 +41,6 @@ public class BusinessRestController {
                 HttpStatus.NOT_FOUND, "Business not found"
         );
         DefaultBusiness business = optionalBusiness.get();
-        //ArrayList<DefaultProduct> products = getProducts(business, program);
-        //BusinessController controller = new BusinessController();
-        //LoyaltyProgram program = controller.createNewProgram(body.getModule(),body.getProducts(),body.getServices());
         business.addProgram(program);
         service.writeBusiness(business);
         return "Program created";

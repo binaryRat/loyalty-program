@@ -19,9 +19,6 @@ public class DefaultBusiness implements Business<InformationModule,DefaultStore,
     private List<LoyaltyProgram> programs = new ArrayList<>();
     @OneToOne(cascade = {CascadeType.ALL})
     private InformationModule module;
-
-
-
     @OneToOne(cascade = {CascadeType.ALL})
     private BusinessManager owner;
 
@@ -35,17 +32,14 @@ public class DefaultBusiness implements Business<InformationModule,DefaultStore,
     public void addStore(DefaultStore store) {
         stores.add(store);
     }
-
     @Override
     public InformationModule getModule() {
         return this.module;
     }
-
     @Override
     public void setModule(InformationModule module) {
         this.module = module;
     }
-
     @Override
     public List<LoyaltyProgram> getPrograms() {
         return programs;
@@ -58,18 +52,15 @@ public class DefaultBusiness implements Business<InformationModule,DefaultStore,
     public void addProgram(LoyaltyProgram program) {
         programs.add(program);
     }
-
     public LoyaltyCard generateCard() {
         return new LoyaltyCard(getId());
     }
-
     public Optional<LoyaltyProgram> getProgramById(Integer id) {
         return getPrograms().stream().filter((p)->p.getId().equals(id)).findFirst();
     }
     public BusinessManager getOwner() {
         return owner;
     }
-
     public void setOwner(BusinessManager owner) {
         this.owner = owner;
     }

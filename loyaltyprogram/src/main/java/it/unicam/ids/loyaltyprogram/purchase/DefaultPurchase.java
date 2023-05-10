@@ -18,18 +18,14 @@ public class DefaultPurchase implements Purchase{
     private List<String> productsCodes;
 
     private Boolean consumed;
-
+    private String type;
+    public Integer businessId;
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
-
-    private String type;
-    public Integer businessId;
-
     public DefaultPurchase() {
         this.consumed = false;
     }

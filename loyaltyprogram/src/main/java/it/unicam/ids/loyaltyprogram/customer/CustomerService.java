@@ -1,6 +1,6 @@
 package it.unicam.ids.loyaltyprogram.customer;
 
-import it.unicam.ids.loyaltyprogram.dbaccess.CustomerRepository;
+import it.unicam.ids.loyaltyprogram.core.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

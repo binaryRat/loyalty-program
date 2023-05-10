@@ -108,7 +108,7 @@ public class CustomerRestController {
 
         ServicePurchase servicePurchase = new ServicePurchase();
         servicePurchase.setType("service");
-        servicePurchase.setCode(generateType1UUID().toString());
+        servicePurchase.setCode(generateRandomCode().toString());
         servicePurchase.setBusinessId(businessId);
         servicePurchase.setProductsCodes(new ArrayList<>(serviceId));
         servicePurchase.setProgramId(programId);
@@ -116,11 +116,6 @@ public class CustomerRestController {
         customerService.writeCustomer(customer);
         purchaseService.writeServicePurchase(servicePurchase);
         return servicePurchase;
-    }
-    @PostMapping(value = "/myBusinesses", consumes = "application/json", produces = "application/json")
-    public ServicePurchase getBusinessesByCustomer(@RequestHeader HashMap<String, String> headers){
-        //TODO
-        return null;
     }
     private static long get64LeastSignificantBitsForVersion1() {
         Random random = new Random();
@@ -136,7 +131,7 @@ public class CustomerRestController {
         final long time_hi = ((currentTimeMillis >> 48) & 0x0FFF);
         return time_low | time_mid | version | time_hi;
     }
-    public static UUID generateType1UUID() {
+    private static UUID generateRandomCode() {
         long most64SigBits = get64MostSignificantBitsForVersion1();
         long least64SigBits = get64LeastSignificantBitsForVersion1();
         return new UUID(most64SigBits, least64SigBits);

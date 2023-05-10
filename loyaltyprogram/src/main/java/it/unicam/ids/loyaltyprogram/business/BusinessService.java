@@ -1,6 +1,6 @@
 package it.unicam.ids.loyaltyprogram.business;
 
-import it.unicam.ids.loyaltyprogram.dbaccess.BusinessRepository;
+import it.unicam.ids.loyaltyprogram.core.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

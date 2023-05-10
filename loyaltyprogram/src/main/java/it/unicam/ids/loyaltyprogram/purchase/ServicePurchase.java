@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class ServicePurchase extends DefaultPurchase{
+    private Integer programId;
 
     public Integer getProgramId() {
         return programId;
@@ -13,5 +14,5 @@ public class ServicePurchase extends DefaultPurchase{
         this.programId = programId;
     }
 
-    private Integer programId;
+
 }

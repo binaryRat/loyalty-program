@@ -1,4 +1,4 @@
-package it.unicam.ids.loyaltyprogram.dbaccess;
+package it.unicam.ids.loyaltyprogram.core;
 import it.unicam.ids.loyaltyprogram.customer.Customer;
 import org.springframework.data.repository.CrudRepository;
 
