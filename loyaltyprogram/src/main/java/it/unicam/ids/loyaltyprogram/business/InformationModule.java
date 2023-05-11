@@ -13,8 +13,8 @@ public class InformationModule implements Module {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    private String name;
-    private String description;
+    private String name = "";
+    private String description = "";
     public InformationModule(){};
     public InformationModule(Map<String, String> data){
         this.name = data.get("name");

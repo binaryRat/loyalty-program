@@ -8,6 +8,10 @@ import java.util.Optional;
 
 @Entity
 public class LoyaltyProgram implements Program<DefaultProduct, DefaultService, InformationModule> {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

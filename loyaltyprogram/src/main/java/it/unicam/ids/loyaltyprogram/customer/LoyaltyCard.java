@@ -33,8 +33,4 @@ public class LoyaltyCard implements Card {
     public Integer getBusinessId() {
         return businessId;
     }
-
-    public void setBusinessId(Integer businessId) {
-        this.businessId = businessId;
-    }
 }

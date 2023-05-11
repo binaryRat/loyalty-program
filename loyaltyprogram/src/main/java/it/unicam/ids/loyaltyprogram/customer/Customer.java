@@ -3,6 +3,7 @@ package it.unicam.ids.loyaltyprogram.customer;
 import it.unicam.ids.loyaltyprogram.core.User;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Customer implements User {
@@ -10,7 +11,7 @@ public class Customer implements User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<LoyaltyCard> cards;
+    private List<LoyaltyCard> cards = new ArrayList<>();
     private String name;
     private String surname;
     private String email;

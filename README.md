@@ -24,10 +24,18 @@ Attività svolte
 - 20% - Implementazione diagramma classi di progetto
 - 50% - Implementazione codice applicazione
 
-## Iterazione 4 (30/04/2023 - 06/04/2023)
+## Iterazione 4 (30/04/2023 - 06/05/2023)
 Attività svolte
 - 5% - Dettaglio casi d'uso
 - 5% - Implementazione diagramma di sequenza
 - 5% - Implementazione diagramma classi di progetto
 - 70% - Implementazione codice applicazione
 - 15% - Verifica e validazione casi d'uso
+
+## Iterazione 5 (07/05/2023 - 13/05/2023)
+Attività svolte
+- 5% - Dettaglio casi d'uso
+- 5% - Implementazione diagramma di sequenza
+- 5% - Implementazione diagramma classi di progetto
+- 20% - Implementazione codice applicazione
+- 65% - Verifica e validazione casi d'uso

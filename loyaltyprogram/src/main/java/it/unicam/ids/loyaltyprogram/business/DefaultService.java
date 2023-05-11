@@ -7,6 +7,10 @@ import jakarta.persistence.Id;
 
 @Entity
 public class DefaultService implements Service{
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
