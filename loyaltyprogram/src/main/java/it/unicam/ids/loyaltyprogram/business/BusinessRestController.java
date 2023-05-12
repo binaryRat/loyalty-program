@@ -17,25 +17,26 @@ public class BusinessRestController {
     @Autowired
     private BusinessService service;
     @PostMapping(value = "/businesses", consumes = "application/json", produces = "application/json")
-    public String createBusiness(@RequestBody DefaultBusiness body, @RequestHeader HashMap<String, String> headers){
+    public DefaultBusiness createBusiness(@RequestBody DefaultBusiness body, @RequestHeader HashMap<String, String> headers){
         //TODO set del owner al business
-        try{
-            if(!body.getModule().checkParameters()){
-                throw new InvalidParameterException("One of the input parameter is empty");
-            };
-            service.writeBusiness(body);
-        }catch (InvalidParameterException e){
-            return "Invalid parameter";
-        }
-        return "Business created";
+        if(!body.getModule().checkParameters()){
+            throw new InvalidParameterException("One of the input parameter is empty");
+        };
+        service.writeBusiness(body);
+        return body;
     }
     @GetMapping(value = "/businesses", produces = "application/json")
     public List<DefaultBusiness> listBusinesses(){
         ArrayList<DefaultBusiness> businesses = service.getBusinesses();
         return businesses;
     }
+    @GetMapping(value = "/businesses/{id}", produces = "application/json")
+    public DefaultBusiness getBusiness(@PathVariable Integer id){
+        Optional<DefaultBusiness> businesses = service.getBusiness(id);
+        return businesses.get();
+    }
     @PostMapping(value = "/businesses/{id}/programs", consumes = "application/json", produces = "application/json")
-    public String addProgramToBusiness(@PathVariable Integer id, @RequestBody LoyaltyProgram program){
+    public DefaultBusiness addProgramToBusiness(@PathVariable Integer id, @RequestBody LoyaltyProgram program){
         Optional<DefaultBusiness> optionalBusiness = service.getBusiness(id);
         if(!optionalBusiness.isPresent()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Business not found"
@@ -43,12 +44,20 @@ public class BusinessRestController {
         DefaultBusiness business = optionalBusiness.get();
         business.addProgram(program);
         service.writeBusiness(business);
-        return "Program created";
+        return business;
     }
     @GetMapping(value = "/businesses/{id}/programs", produces = "application/json")
     public List<LoyaltyProgram> listBusinessPrograms(@PathVariable Integer id){
         Optional<DefaultBusiness> business = service.getBusiness(id);
         if(business.isPresent()) return business.get().getPrograms();
+        else throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Business not found"
+        );
+    }
+    @GetMapping(value = "/businesses/{id}/programs/{programId}", produces = "application/json")
+    public LoyaltyProgram getProgram(@PathVariable Integer id, @PathVariable Integer programId){
+        Optional<DefaultBusiness> business = service.getBusiness(id);
+        if(business.isPresent()) return business.get().getProgramById(programId).get();
         else throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Business not found"
         );

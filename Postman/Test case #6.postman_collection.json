@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "3bd0a0e5-e315-499c-bb8f-b8976ee21ad2",
+		"name": "Test case #6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Azienda creata con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"customerId\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"NomeClientePerTest\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza cliente\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"NomeClientePerTest\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Leonid\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/{{customerId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Business",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Azienda creata con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"businessId\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"module\":{\n        \"name\":\"NomeAttivitàPerTest\",\n        \"description\":\"Vendita elettrodomestici\"\n    },\n    \"stores\":[{\n        \"name\":\"Mediaworld\",\n        \"position\":\"Via roma 12 Milano\"\n    },\n    {\n        \"name\":\"Mediaworld\",\n        \"position\":\"Via napoli 12 Milano\"\n    }\n    ]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/manager/businesses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"manager",
+						"businesses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Business",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza azienda\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.module.name).to.eql(\"NomeAttivitàPerTest\");",
+							"    pm.expect(jsonData.stores.length).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/manager/businesses/{{businessId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"manager",
+						"businesses",
+						"{{businessId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Program",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Programma creato con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"programId\",pm.response.json().programs[pm.response.json().programs.length-1].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"module\":{\n        \"name\":\"NomeProgrammaPerTest\",\n        \"description\":\"Il programma di fedeltà fonrnisce uno sconto ai clienti fedeli\"\n    },\n    \"products\":[\n        {\n            \"name\":\"Computer\",\n            \"points\":100,\n            \"code\":\"123456789\"\n        },\n        {\n            \"name\":\"schermo\",\n            \"points\":50,\n            \"code\":\"123456788\"\n        }\n    ],\n    \"services\":[\n        {\n            \"name\": \"Sconto 20% per acquisti di almento 100$\",\n            \"cost\":100\n        },\n        {\n            \"name\": \"Sconto 30% per acquisti di almento 100$\",\n            \"cost\":200\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/manager/businesses/{{businessId}}/programs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"manager",
+						"businesses",
+						"{{businessId}}",
+						"programs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Program",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza programma\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.module.name).to.eql(\"NomeProgrammaPerTest\");",
+							"    pm.expect(jsonData.products.length).to.eql(2);",
+							"    pm.expect(jsonData.services.length).to.eql(2);",
+							"    pm.collectionVariables.set(\"serviceId\", jsonData.services[0].id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/manager/businesses/{{businessId}}/programs/{{programId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"manager",
+						"businesses",
+						"{{businessId}}",
+						"programs",
+						"{{programId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Carta creata con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"cardId\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "userId",
+						"value": "{{customerId}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"businessId\":{{businessId}}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/addCard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"addCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer after card added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza carta\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cards.length).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Leonid\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/{{customerId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Acquisto creato con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"purchaseCode\",pm.response.json().code);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "userId",
+						"value": "1",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"businessId\":{{businessId}},\n    \"code\":123123123123,\n    \"productsCodes\":[123456789,123456788],\n    \"type\":\"product\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/purchases",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"purchases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza acquisto\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(pm.collectionVariables.get(\"purchaseCode\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "userId",
+						"value": "1",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/purchases/{{purchaseCode}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"purchases",
+						"{{purchaseCode}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Claim purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Acquisto reclamato con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "userId",
+						"value": "{{customerId}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"businessId\":{{businessId}},\n    \"code\":{{purchaseCode}}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/collect",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"collect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer after purchase claim",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza punti\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cards[0].points).to.eql(150);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Leonid\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/{{customerId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buy service",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Servizio comprato con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.be.not.null;",
+							"    pm.collectionVariables.set(\"servicePurchaseId\", jsonData.code);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "userId",
+						"value": "{{customerId}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"businessId\":{{businessId}},\n    \"programId\":{{programId}},\n    \"serviceId\":{{serviceId}}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/buyService",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"buyService"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer after service purchase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica rimozione punti\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cards[0].points).to.eql(50);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Leonid\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/{{customerId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "customerId",
+			"value": ""
+		},
+		{
+			"key": "businessId",
+			"value": ""
+		},
+		{
+			"key": "programId",
+			"value": ""
+		},
+		{
+			"key": "cardId",
+			"value": ""
+		},
+		{
+			"key": "purchaseCode",
+			"value": ""
+		},
+		{
+			"key": "serviceId",
+			"value": ""
+		},
+		{
+			"key": "servicePurchaseId",
+			"value": ""
+		}
+	]
+}

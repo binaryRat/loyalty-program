@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "e5ff9177-f34c-41a5-a262-84bfce5c0cd7",
+		"name": "Test case #3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Azienda creata con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"customerId\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"NomeClientePerTest\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza cliente\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"NomeClientePerTest\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Leonid\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/{{customerId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Business",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Azienda creata con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"businessId\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"module\":{\n        \"name\":\"NomeAttivitàPerTest\",\n        \"description\":\"Vendita elettrodomestici\"\n    },\n    \"stores\":[{\n        \"name\":\"Mediaworld\",\n        \"position\":\"Via roma 12 Milano\"\n    },\n    {\n        \"name\":\"Mediaworld\",\n        \"position\":\"Via napoli 12 Milano\"\n    }\n    ]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/manager/businesses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"manager",
+						"businesses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Business",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza azienda\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.module.name).to.eql(\"NomeAttivitàPerTest\");",
+							"    pm.expect(jsonData.stores.length).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/manager/businesses/{{businessId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"manager",
+						"businesses",
+						"{{businessId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Carta creata con successo\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.collectionVariables.set(\"cardId\",pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "userId",
+						"value": "{{customerId}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"businessId\":{{businessId}}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/addCard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"addCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer after card added",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verifica presenza carta\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cards.length).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Leonid\",\n    \"surname\":\"Fomicev\",\n    \"email\":\"test@gmail.com\",\n    \"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/customer/{{customerId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "customerId",
+			"value": ""
+		},
+		{
+			"key": "businessId",
+			"value": ""
+		},
+		{
+			"key": "cardId",
+			"value": ""
+		}
+	]
+}

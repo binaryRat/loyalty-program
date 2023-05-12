@@ -11,9 +11,9 @@ public class PurchaseRestController {
     @Autowired
     private PurchaseService service;
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
-    public String addPurchase(@RequestBody DefaultPurchase body){
+    public DefaultPurchase addPurchase(@RequestBody DefaultPurchase body){
         service.writePurchase(body);
-        return "Purchase created";
+        return body;
     }
     @GetMapping(value = "", produces = "application/json")
     public List<DefaultPurchase> listPurchases(){
@@ -31,6 +31,7 @@ public class PurchaseRestController {
         ArrayList<DefaultPurchase> purchases = service.getPurchases();
         DefaultPurchase purchase = purchases.stream().filter((p)->p.getCode().equals(uuid)).findFirst().get();
         purchase.consume();
+        service.writePurchase(purchase);
         return purchase;
     }
 

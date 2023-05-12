@@ -24,7 +24,7 @@ public class CustomerRestController {
     private PurchaseService purchaseService;
 
     @PostMapping(value = "/addCard", consumes = "application/json", produces = "application/json")
-    public String addCard(@RequestBody Map<String, Integer> body, @RequestHeader HashMap<String, String> headers){
+    public LoyaltyCard addCard(@RequestBody Map<String, Integer> body, @RequestHeader HashMap<String, String> headers){
         Optional<DefaultBusiness> optionalBusiness = businessService.getBusiness(body.get("businessId"));
         if(!optionalBusiness.isPresent()) throw new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Business not found"
@@ -36,14 +36,19 @@ public class CustomerRestController {
                 HttpStatus.NOT_FOUND, "Customer not found"
         );
         Customer customer = optionalCustomer.get();
-        customer.addCard(business.generateCard());
+        LoyaltyCard card = business.generateCard();
+        customer.addCard(card);
         customerService.writeCustomer(customer);
-        return "Card added";
+        return card;
     }
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
-    public String createUser(@RequestBody Customer body){
+    public Customer createUser(@RequestBody Customer body){
         customerService.writeCustomer(body);
-        return "Customer created";
+        return body;
+    }
+    @GetMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
+    public Customer getUser(@PathVariable Integer id){
+        return customerService.getCustomer(id).get();
     }
 
     @PostMapping(value = "/collect", consumes = "application/json", produces = "application/json")

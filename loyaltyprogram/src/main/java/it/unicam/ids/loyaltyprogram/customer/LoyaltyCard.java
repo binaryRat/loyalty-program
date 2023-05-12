@@ -8,6 +8,10 @@ import java.util.List;
 
 @Entity
 public class LoyaltyCard implements Card {
+    public Integer getId() {
+        return id;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
