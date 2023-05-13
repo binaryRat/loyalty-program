@@ -17,13 +17,13 @@ public class BusinessRestController {
     @Autowired
     private BusinessService service;
     @PostMapping(value = "/businesses", consumes = "application/json", produces = "application/json")
-    public DefaultBusiness createBusiness(@RequestBody DefaultBusiness body, @RequestHeader HashMap<String, String> headers){
-        //TODO set del owner al business
-        if(!body.getModule().checkParameters()){
+    public DefaultBusiness createBusiness(@RequestBody DefaultBusiness business, @RequestHeader HashMap<String, String> headers){
+        business.setOwnerId(Integer.valueOf(headers.get("userId")));
+        if(!business.getModule().checkParameters()){
             throw new InvalidParameterException("One of the input parameter is empty");
         };
-        service.writeBusiness(body);
-        return body;
+        service.writeBusiness(business);
+        return business;
     }
     @GetMapping(value = "/businesses", produces = "application/json")
     public List<DefaultBusiness> listBusinesses(){
@@ -68,9 +68,13 @@ public class BusinessRestController {
         return product;
     }
     @GetMapping(value = "/search/owned", produces = "application/json")
-    public List<DefaultBusiness> getMyBusinesses(@RequestParam String code, @RequestParam Integer businessId){
-       //TODO
-        return null;
+    public DefaultBusiness getMyBusinesses(@RequestHeader HashMap<String, String> headers){
+        ArrayList<DefaultBusiness> businesses = service.getBusinesses();
+        Optional<DefaultBusiness> business = businesses.stream().filter((b)->b.getOwnerId().equals(Integer.valueOf(headers.get("userId")))).findFirst();
+        if(business.isPresent()) return business.get();
+        else throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Business not found"
+        );
     }
 
     private ArrayList<DefaultProduct> getProducts(DefaultBusiness business, LoyaltyProgram program){
